@@ -1,5 +1,7 @@
 # 部署
 
+使用 Cloud in a Bottle / OpenHost 时，见 [Cloud in a Bottle 部署](openhost.md)。
+
 ## 用 Docker（推荐）
 
 需要一台装了 Docker（带 Compose）的机器。云服务器建议至少 2 核、4 GB 内存，构建镜像时要用到。

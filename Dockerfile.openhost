@@ -1,0 +1,35 @@
+# Cloud in a Bottle runs one OCI container per app. AIHOT normally uses four Compose services,
+# so this image keeps PostgreSQL and the three Node roles in one supervised container while all
+# persistent state lives in BOTTLE_APP_DATA_DIR.
+FROM node:24-trixie-slim AS build
+WORKDIR /app
+
+COPY package.json package-lock.json ./
+COPY apps/api/package.json apps/api/
+COPY apps/web/package.json apps/web/
+COPY apps/worker/package.json apps/worker/
+COPY packages/backend/package.json packages/backend/
+COPY packages/contracts/package.json packages/contracts/
+COPY industry/package.json industry/
+RUN npm ci --no-audit --no-fund
+
+COPY . .
+RUN npm run build -w @aihot/web \
+ && npm prune --omit=dev --no-audit --no-fund
+
+FROM node:24-trixie-slim
+ENV NODE_ENV=production
+WORKDIR /app
+
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends postgresql-17 postgresql-client-17 ca-certificates openssl tini \
+ && pg_dropcluster --stop 17 main \
+ && rm -rf /var/lib/apt/lists/*
+
+COPY --from=build /app /app
+RUN chmod 0755 /app/scripts/openhost-entrypoint.sh \
+ && mkdir -p /data \
+ && chown node:node /data
+
+EXPOSE 3000
+ENTRYPOINT ["/usr/bin/tini", "--", "/app/scripts/openhost-entrypoint.sh"]

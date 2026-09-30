@@ -1,0 +1,29 @@
+[app]
+name = "news"
+version = "0.1.0"
+description = "AI 行业热点采集、精选、聚类与日报站"
+authors = ["accelizero"]
+
+[runtime.container]
+image = "Dockerfile.openhost"
+port = 3000
+
+[routing]
+health_check = "/api/health"
+public_paths = ["/"]
+
+[resources]
+memory_mb = 1024
+build_memory_mb = 2048
+cpu_cores = 1.0
+
+[data]
+app_data = true
+
+[[links]]
+name = "后台"
+path = "/admin"
+
+[[links]]
+name = "Agent 接入"
+path = "/agent"
