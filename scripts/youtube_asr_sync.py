@@ -51,7 +51,13 @@ def transcribe(audio: Path, output: Path) -> str:
         "--audio", str(audio), "--output-path", str(output), "--format", "txt",
         "--language", "auto", "--chunk-duration", "30",
     ], check=True)
-    return output.read_text(encoding="utf-8").strip()
+    # mlx_audio appends the format suffix even when output-path already has it
+    # (for example, ``episode.txt`` becomes ``episode.txt.txt``).
+    candidates = (output, Path(f"{output}.txt"))
+    for candidate in candidates:
+        if candidate.exists():
+            return candidate.read_text(encoding="utf-8").strip()
+    raise FileNotFoundError(f"ASR output not found: {', '.join(map(str, candidates))}")
 
 
 def main() -> int:
