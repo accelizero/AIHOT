@@ -1,20 +1,20 @@
 {
   "exportedAt": "2026-10-01",
   "groups": [
-    { "key": "business", "name": "一人生意地图", "blurb": "按赚钱方式浏览独立开发、服务、电商和内容变现" },
-    { "key": "operation", "name": "经营能力", "blurb": "按获客、销售、交付、定价和复购寻找可执行方法" },
-    { "key": "signals", "name": "平台与信号", "blurb": "按平台变化、政策风险和讨论热度观察机会" }
+    { "key": "field", "name": "一人生意地图", "blurb": "按赚钱方式浏览独立开发、服务、电商和内容变现" },
+    { "key": "genre", "name": "经营能力", "blurb": "按获客、销售、交付、定价和复购寻找可执行方法" },
+    { "key": "company", "name": "平台与信号", "blurb": "按平台变化、政策风险和讨论热度观察机会" }
   ],
   "topics": [
-    { "slug": "indie-development", "name": "独立开发与微型 SaaS", "group": "business", "tags": ["独立开发", "微型SaaS", "entity:hackernews"], "definition": "一个人或小团队开发并销售软件、插件、模板、自动化工具和微型 SaaS。", "related": ["digital-products", "customer-acquisition", "product-launches"] },
-    { "slug": "digital-products", "name": "数字产品", "group": "business", "tags": ["数字产品", "插件/模板", "知识产品"], "definition": "模板、课程、资料包、插件、API、自动化脚本等可重复交付的数字产品。", "related": ["indie-development", "creator-business"] },
-    { "slug": "freelance-services", "name": "自由职业与专业服务", "group": "business", "tags": ["自由职业", "服务生意", "设计服务", "开发服务"], "definition": "以个人技能为核心的咨询、设计、开发、运营、翻译、培训和交付服务。", "related": ["customer-acquisition", "pricing-cashflow"] },
-    { "slug": "creator-business", "name": "内容与个人品牌", "group": "business", "tags": ["内容变现", "知识产品", "付费社群", "播客/视频"], "definition": "内容、社群、订阅、咨询和数字商品组成的个人品牌生意。", "related": ["customer-acquisition", "digital-products"] },
-    { "slug": "commerce", "name": "电商与小众品牌", "group": "business", "tags": ["电商/跨境", "小众品牌", "供应链"], "definition": "低库存、小众商品、跨境、二手交易和个人品牌电商。", "related": ["platform-rules", "creator-business"] },
-    { "slug": "customer-acquisition", "name": "获客与销售", "group": "operation", "tags": ["获客/销售", "SEO", "社交获客", "邮件/订阅"], "definition": "不依赖大额投放的搜索、内容、社群、转介绍、邮件和销售流程。", "related": ["pricing-cashflow", "freelance-services"] },
-    { "slug": "pricing-cashflow", "name": "定价、交付与现金流", "group": "operation", "tags": ["定价/现金流", "复购/留存", "低成本启动"], "definition": "个人生意的定价、合同、交付、复购、成本和现金流管理。", "related": ["customer-acquisition", "freelance-services"] },
-    { "slug": "platform-rules", "name": "平台规则与政策", "group": "signals", "tags": ["平台规则", "政策/税务", "风险提醒"], "definition": "影响个人创业者的电商平台规则、税务、登记、劳动和合规变化。", "related": ["commerce", "pricing-cashflow"] },
-    { "slug": "discussions", "name": "讨论中的机会", "group": "signals", "tags": ["讨论观察", "真实案例"], "definition": "尚未充分验证但已有创业者、买家或社区持续讨论的机会，明确标注为观察而不是结论。", "related": ["indie-development", "customer-acquisition"] },
-    { "slug": "product-launches", "name": "新产品与新服务", "group": "signals", "tags": ["数字产品", "工具/自动化", "产品发布"], "definition": "Product Hunt、Show HN 和其他一手渠道上的新产品、新服务和新商业模式。", "related": ["indie-development", "digital-products"] }
+    { "slug": "indie-development", "name": "独立开发与微型 SaaS", "group": "field", "tags": ["独立开发", "微型SaaS", "entity:hackernews"], "definition": "一个人或小团队开发并销售软件、插件、模板、自动化工具和微型 SaaS。", "related": ["digital-products", "customer-acquisition", "product-launches"] },
+    { "slug": "digital-products", "name": "数字产品", "group": "field", "tags": ["数字产品", "插件/模板", "知识产品"], "definition": "模板、课程、资料包、插件、API、自动化脚本等可重复交付的数字产品。", "related": ["indie-development", "creator-business"] },
+    { "slug": "freelance-services", "name": "自由职业与专业服务", "group": "field", "tags": ["自由职业", "服务生意", "设计服务", "开发服务"], "definition": "以个人技能为核心的咨询、设计、开发、运营、翻译、培训和交付服务。", "related": ["customer-acquisition", "pricing-cashflow"] },
+    { "slug": "creator-business", "name": "内容与个人品牌", "group": "field", "tags": ["内容变现", "知识产品", "付费社群", "播客/视频"], "definition": "内容、社群、订阅、咨询和数字商品组成的个人品牌生意。", "related": ["customer-acquisition", "digital-products"] },
+    { "slug": "commerce", "name": "电商与小众品牌", "group": "field", "tags": ["电商/跨境", "小众品牌", "供应链"], "definition": "低库存、小众商品、跨境、二手交易和个人品牌电商。", "related": ["platform-rules", "creator-business"] },
+    { "slug": "customer-acquisition", "name": "获客与销售", "group": "genre", "tags": ["获客/销售", "SEO", "社交获客", "邮件/订阅"], "definition": "不依赖大额投放的搜索、内容、社群、转介绍、邮件和销售流程。", "related": ["pricing-cashflow", "freelance-services"] },
+    { "slug": "pricing-cashflow", "name": "定价、交付与现金流", "group": "genre", "tags": ["定价/现金流", "复购/留存", "低成本启动"], "definition": "个人生意的定价、合同、交付、复购、成本和现金流管理。", "related": ["customer-acquisition", "freelance-services"] },
+    { "slug": "platform-rules", "name": "平台规则与政策", "group": "company", "tags": ["平台规则", "政策/税务", "风险提醒"], "definition": "影响个人创业者的电商平台规则、税务、登记、劳动和合规变化。", "related": ["commerce", "pricing-cashflow"] },
+    { "slug": "discussions", "name": "讨论中的机会", "group": "company", "tags": ["讨论观察", "真实案例"], "definition": "尚未充分验证但已有创业者、买家或社区持续讨论的机会，明确标注为观察而不是结论。", "related": ["indie-development", "customer-acquisition"] },
+    { "slug": "product-launches", "name": "新产品与新服务", "group": "company", "tags": ["数字产品", "工具/自动化", "产品发布"], "definition": "Product Hunt、Show HN 和其他一手渠道上的新产品、新服务和新商业模式。", "related": ["indie-development", "digital-products"] }
   ]
 }
