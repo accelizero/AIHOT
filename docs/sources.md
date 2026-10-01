@@ -97,3 +97,17 @@ Content-Type: application/json
 - `sourceId` 不存在时会自动建一个 `external` 信源，默认不进公开页面：到后台把它的参与方式改成 `editorial` 才会出现在站上。
 - 在后台暂停信源后，推送接口返回 409，不再接收新文章；恢复信源后可以继续推送。
 - 条目的 `raw._aihot.backfill` 为 `true` 时按历史回灌处理（不进入“今天”、不推送）。
+
+## YouTube + Mac 本机 ASR
+
+`scripts/youtube_asr_sync.py` 可在 Mac 上读取 YouTube 频道 RSS、下载音频，并调用本机 MLX Qwen3-ASR 模型转写，再通过上述接口把文字稿送入同一套筛选和摘要流程。
+
+```bash
+brew install yt-dlp ffmpeg
+export AIHOT_INGEST_URL=https://news.yuanrui.dev/api/ingest/items
+export INGEST_TOKEN='<服务器配置中的 INGEST_TOKEN>'
+export YOUTUBE_CHANNEL_IDS='UCxxxxxxxxxxxxxxxxxxxxxx,UCyyyyyyyyyyyyyyyyyyyyyy'
+python3 scripts/youtube_asr_sync.py
+```
+
+频道第一次推送会自动创建为 `external`/`isolated`；确认内容质量后，在后台把参与方式改成 `editorial`。站内默认只展示摘要和原视频链接，文字稿只用于筛选、分析和归组；请只处理公开且有权使用的内容。

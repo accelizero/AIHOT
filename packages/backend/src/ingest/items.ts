@@ -21,6 +21,9 @@ interface ItemIn {
   url?: unknown;
   publishedAt?: unknown;
   author?: unknown;
+  language?: unknown;
+  excerpt?: unknown;
+  bodyText?: unknown;
   raw?: { _aihot?: { backfill?: boolean; baseline?: boolean } } & Record<string, unknown>;
 }
 
@@ -69,7 +72,11 @@ export async function ingestItems(body: unknown): Promise<{ ok: true; created: n
       url,
       title,
       author: typeof it.author === "string" ? it.author.slice(0, 200) : null,
+      language: typeof it.language === "string" ? it.language.slice(0, 32) : null,
       publishedAt: published && Number.isFinite(published.getTime()) ? published : null,
+      excerpt: typeof it.excerpt === "string" ? it.excerpt.slice(0, 5000) : null,
+      bodyText: typeof it.bodyText === "string" ? it.bodyText.slice(0, 500_000) : null,
+      bodyStatus: typeof it.bodyText === "string" && it.bodyText.trim() ? "ok" : "pending",
       raw: it.raw ?? null,
       via: "ingest",
       backfill: flags.backfill ? "reported-backfill" : flags.baseline ? "reported-baseline" : null,
