@@ -21,6 +21,7 @@ LIMIT = max(1, int(os.environ.get("YOUTUBE_LIMIT", "3")))
 MAX_TOTAL = max(0, int(os.environ.get("YOUTUBE_MAX_TOTAL", "0")))
 DRY_RUN = os.environ.get("YOUTUBE_DRY_RUN", "false").lower() == "true"
 STRICT = os.environ.get("YOUTUBE_STRICT", "false").lower() == "true"
+SKIP_VIDEO_IDS = {x.strip() for x in os.environ.get("YOUTUBE_SKIP_VIDEO_IDS", "").split(",") if x.strip()}
 MODEL = os.environ.get(
     "ASR_MODEL",
     str(Path.home() / ".cache/modelscope/models/qwen--Qwen3-ASR-0.6B/snapshots/master"),
@@ -114,13 +115,28 @@ def main() -> int:
                 continue
             items = []
             for video in videos:
+                if video["id"] in SKIP_VIDEO_IDS:
+                    print(f"{configured_name}: skip existing {video['id']}")
+                    continue
                 if MAX_TOTAL and total >= MAX_TOTAL:
                     break
                 audio = workdir / f"{video['id']}.m4a"
                 transcript = workdir / f"{video['id']}.txt"
                 if not audio.exists():
-                    subprocess.run(["yt-dlp", "--no-playlist", "-x", "--audio-format", "m4a", "-o", str(audio), video["url"]], check=True)
-                text = transcript_text(transcript) or transcribe(audio, transcript)
+                    try:
+                        subprocess.run(["yt-dlp", "--no-playlist", "-x", "--audio-format", "m4a", "-o", str(audio), video["url"]], check=True)
+                    except subprocess.CalledProcessError as error:
+                        print(f"{configured_name}: download failed {video['id']} ({error.returncode}), skip")
+                        if STRICT:
+                            raise
+                        continue
+                try:
+                    text = transcript_text(transcript) or transcribe(audio, transcript)
+                except (OSError, subprocess.CalledProcessError) as error:
+                    print(f"{configured_name}: ASR failed {video['id']} ({error}), skip")
+                    if STRICT:
+                        raise
+                    continue
                 if text:
                     items.append({
                         "title": video["title"], "url": video["url"], "publishedAt": video["publishedAt"],
