@@ -1,0 +1,38 @@
+[
+  {
+    "id": "UChhw6DlKKTQ9mYSpTfXUYqA",
+    "slug": "starter-story",
+    "name": "Starter Story",
+    "enabled": true
+  },
+  {
+    "id": "UCPjNBjflYl0-HQtUvOx0Ibw",
+    "slug": "greg-isenberg",
+    "name": "Greg Isenberg",
+    "enabled": true
+  },
+  {
+    "id": "UCjCYkUY8HHO_m6QsYqIHdqw",
+    "slug": "saas-university",
+    "name": "SaaS University",
+    "enabled": true
+  },
+  {
+    "id": "UCTTwysojdrXUEZ1KX30jIPw",
+    "slug": "techfuelai",
+    "name": "TechFuelAI",
+    "enabled": true
+  },
+  {
+    "id": "UC8h6FRP5daqiKuNe33UhjWg",
+    "slug": "kevin-park",
+    "name": "Kevin Park",
+    "enabled": true
+  },
+  {
+    "id": "UCHoBKQDRkJcOY2BO47q5Ruw",
+    "slug": "rob-walling",
+    "name": "Rob Walling",
+    "enabled": true
+  }
+]

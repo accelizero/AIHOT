@@ -102,6 +102,18 @@ Content-Type: application/json
 
 `scripts/youtube_asr_sync.py` 可在 Mac 上读取 YouTube 频道 RSS、下载音频，并调用本机 MLX Qwen3-ASR 模型转写，再通过上述接口把文字稿送入同一套筛选和摘要流程。
 
+默认频道清单在 `scripts/youtube_business_channels.json`，面向一人创业、独立开发、SaaS 和具体收入案例。批量运行：
+
+```bash
+export AIHOT_INGEST_URL=https://news.yuanrui.dev/api/ingest/items
+export INGEST_TOKEN='从远端 aihot.env 读取的令牌'
+export YOUTUBE_LIMIT=2             # 每个频道最多处理几条
+export YOUTUBE_MAX_TOTAL=12        # 本次总上限，0 表示不限
+python3 scripts/youtube_asr_sync.py
+```
+
+先只检查频道 RSS、不下载音频可以运行 `YOUTUBE_DRY_RUN=true`。临时替换频道集合时设置 `YOUTUBE_CHANNELS_FILE=/path/to/channels.json`；旧的 `YOUTUBE_CHANNEL_IDS=id1,id2` 方式仍然兼容。单个频道失败默认跳过并继续，排查时可设置 `YOUTUBE_STRICT=true`。
+
 ```bash
 brew install yt-dlp ffmpeg
 export AIHOT_INGEST_URL=https://news.yuanrui.dev/api/ingest/items
