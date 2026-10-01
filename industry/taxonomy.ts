@@ -1,139 +1,68 @@
-// 这个行业的分类体系：类别、标签词表、公司（主体）名录，以及防止张冠李戴的身份词典。
-// 模型按这里的词表打标签，主题页（topics.json）按标签归类，筛选栏按类别分组。
-// 换行业时：类别的 key 会出现在网址里（/all?category=…），上线后就不要再改；标签和名录可以随时增减。
-
-/**
- * 网页上的类别（筛选栏、卡片角标、RSS 分类订阅）。key 是网址和接口里的身份，上线后不要改。
- * section 是日报里的分节标题（几个类别可以共用一节，按这里的顺序排）；guide 告诉模型怎么归类。
- * 没归上类的资料在日报里放进第一个 key 为 industry 的类别所在的节（没有就放最后一节）。
- */
+// 普通人创业与一人小生意的分类、标签和主体词典。
 export const CATEGORIES = [
-  { key: "ai-models", label: "模型", section: "模型发布/更新", guide: "新模型、模型版本、权重开放、模型能力与价格变化的发布与评测结果" },
-  { key: "ai-products", label: "产品", section: "产品发布/更新", guide: "AI 产品、功能、应用、工具、API 与平台的发布和更新" },
-  { key: "industry", label: "行业", section: "行业动态", guide: "公司经营、融资并购、人事、合作、诉讼、监管与政策、市场与基础设施" },
-  { key: "paper", label: "论文", section: "论文研究", guide: "研究论文、技术报告、基准与数据集" },
-  { key: "tip", label: "教程", section: "技巧与观点", guide: "教程、实践经验、使用技巧、提示词与工具用法、深度技术讲解" },
-  { key: "opinion", label: "观点", section: "技巧与观点", guide: "人物观点、评论、分析、访谈、现象与趋势讨论" },
+  { key: "solo-build", label: "独立开发", section: "独立开发与数字产品", guide: "一个人或小团队开发的软件、插件、模板、自动化工具、微型 SaaS 和数字产品" },
+  { key: "services", label: "服务生意", section: "服务与自由职业", guide: "咨询、设计、开发、代运营、培训、撮合、上门服务和其他靠技能交付的生意" },
+  { key: "commerce", label: "电商与商品", section: "电商与个人品牌", guide: "电商、跨境、小众品牌、二手交易、数字商品和供应链机会" },
+  { key: "creator", label: "内容变现", section: "内容与个人品牌", guide: "内容创作、知识产品、社群、订阅、播客、视频和创作者变现" },
+  { key: "growth", label: "获客经营", section: "获客、销售与经营", guide: "获客、销售、定价、交付、复购、自动化、现金流和客户经营" },
+  { key: "policy", label: "政策平台", section: "政策、平台与风险", guide: "影响个人创业的政策、税务、平台规则、合规、劳动与市场变化" },
+  { key: "discussion", label: "讨论观察", section: "讨论与观察", guide: "尚未验证但有人认真讨论的创业想法、趋势和市场信号，必须明确标注为观察" },
 ] as const;
 
-/**
- * 内容理解一步给每篇资料判的“内容类型”（写在 prompts/content-understanding.md 里，改了类型要同步改那份提示词）。
- * 评分提示词（prompts/selection-score.md）按类型给五个维度不同的权重。
- */
-export const ITEM_TYPES = ["model_release", "product_launch", "tool_or_prompt", "research_paper", "industry_event", "opinion_analysis", "tutorial_explainer"] as const;
+export const ITEM_TYPES = ["business_opportunity", "product_launch", "case_study", "platform_change", "policy_change", "how_to", "discussion"] as const;
 
-// ── 标签词表 ────────────────────────────────────────────────────────────────────────────
-
-/** 每篇资料的第一个标签必须是这些“分类标签”之一。 */
 export const CATEGORY_TAGS = [
-  "产品更新", "模型发布", "论文/研究", "开源/仓库", "教程/实践", "现象/趋势", "大佬观点", "评测/基准", "安全/对齐", "行业动态", "政策/监管",
-  "非AI/通用工具", "其他",
+  "独立开发", "自由职业", "服务生意", "电商/跨境", "数字产品", "内容变现", "获客/销售", "定价/现金流", "平台规则", "政策/税务", "真实案例", "讨论观察", "风险提醒", "工具/自动化", "其他",
 ] as const;
 
-/** 可选的主题标签。 */
 export const TOPIC_TAGS = [
-  "Agent", "编码", "推理", "多模态", "语音", "视频", "图像生成", "RAG", "端侧", "数据/训练", "搜索", "部署/工程", "开源生态", "具身智能", "MCP/工具调用",
+  "微型SaaS", "插件/模板", "AI工具", "开源项目", "设计服务", "开发服务", "咨询培训", "代运营", "本地生活", "二手交易", "跨境电商", "小众品牌", "知识产品", "付费社群", "播客/视频", "SEO", "社交获客", "邮件/订阅", "自动化", "支付/税务", "平台流量", "复购/留存", "供应链", "低成本启动",
 ] as const;
 
-/** 可选的实体标签（公司、机构、平台）。 */
-export const ENTITY_TAGS = ["OpenAI", "Anthropic", "DeepSeek", "DeepMind", "Google", "Meta", "Microsoft", "xAI", "Hugging Face", "GitHub", "arXiv"] as const;
+export const ENTITY_TAGS = [
+  "Product Hunt", "Hacker News", "Indie Hackers", "Shopify", "Stripe", "淘宝", "京东", "抖音电商", "小红书", "微信小店", "美团", "闲鱼", "36氪", "亿邦动力",
+] as const;
 
-/** 模型常写的近义词，统一成词表里的写法。 */
 export const TAG_SYNONYMS: Readonly<Record<string, string>> = {
-  "教程/玩法": "教程/实践", "技巧/最佳实践": "教程/实践", "合作/生态": "行业动态", "融资/收购": "行业动态", "公司动态": "行业动态",
-  合作: "行业动态", 生态: "行业动态", 融资: "行业动态", 收购: "行业动态", 投资: "行业动态", 并购: "行业动态",
-  政策: "政策/监管", 监管: "政策/监管", 法规: "政策/监管", 安全: "安全/对齐", 对齐: "安全/对齐",
-  论文: "论文/研究", 研究: "论文/研究", paper: "论文/研究", papers: "论文/研究",
-  "open-source": "开源/仓库", 开源: "开源/仓库", 仓库: "开源/仓库", repo: "开源/仓库",
-  教程: "教程/实践", 玩法: "教程/实践", 指南: "教程/实践", 技巧: "教程/实践", 最佳实践: "教程/实践", 实践: "教程/实践",
-  产品: "产品更新", 更新: "产品更新", 发布: "模型发布", 模型: "模型发布", 趋势: "现象/趋势", 现象: "现象/趋势", 观点: "大佬观点",
-  视频生成: "视频", 非ai: "非AI/通用工具", "non-ai": "非AI/通用工具", 通用工具: "非AI/通用工具", 工程工具: "非AI/通用工具",
-  安全扫描: "非AI/通用工具", devops: "非AI/通用工具", 行业: "行业动态", 动态: "行业动态",
+  独立开发者: "独立开发", 微型SaaS: "微型SaaS", SaaS: "微型SaaS", sideproject: "独立开发", "side project": "独立开发",
+  自由职业者: "自由职业", 咨询: "咨询培训", 培训: "咨询培训", 代理: "代运营", 运营: "代运营",
+  电商: "电商/跨境", 跨境: "跨境电商", 品牌: "小众品牌", 数字商品: "数字产品", 课程: "知识产品",
+  获客: "获客/销售", 销售: "获客/销售", 增长: "获客/销售", 现金流: "定价/现金流", 定价: "定价/现金流",
+  规则: "平台规则", 平台: "平台规则", 政策: "政策/税务", 税务: "政策/税务", 合规: "风险提醒",
+  案例: "真实案例", 实战: "真实案例", 观察: "讨论观察", 想法: "讨论观察", 自动化工具: "工具/自动化",
 };
 
-/** 模型漏了分类标签时，按内容类型补一个。 */
 export const CATEGORY_BY_ITEM_TYPE: Readonly<Record<string, string>> = {
-  model_release: "模型发布", product_launch: "产品更新", tool_or_prompt: "教程/实践", research_paper: "论文/研究",
-  industry_event: "行业动态", opinion_analysis: "大佬观点", tutorial_explainer: "教程/实践",
+  business_opportunity: "独立开发", product_launch: "数字产品", case_study: "真实案例", platform_change: "平台规则",
+  policy_change: "政策/税务", how_to: "获客/销售", discussion: "讨论观察",
 };
 
-// ── 公司与主体 ──────────────────────────────────────────────────────────────────────────
-
-/** 公司主题：id → 显示名、卡片上显示的标签（null 表示只用 entity:<id> 归类）、别名。 */
 export const ENTITIES: Record<string, { name: string; displayTag: string | null; aliases: string[] }> = {
-  openai: { name: "OpenAI", displayTag: "OpenAI", aliases: ["OpenAI", "ChatGPT", "Sora", "Codex", "GPT"] },
-  anthropic: { name: "Anthropic", displayTag: "Anthropic", aliases: ["Anthropic", "Claude"] },
-  google: { name: "Google", displayTag: "Google", aliases: ["Google", "DeepMind", "Gemini", "谷歌"] },
-  deepseek: { name: "DeepSeek", displayTag: "DeepSeek", aliases: ["DeepSeek", "深度求索"] },
-  qwen: { name: "千问 Qwen", displayTag: null, aliases: ["Qwen", "通义", "阿里"] },
-  kimi: { name: "Kimi / 月之暗面", displayTag: null, aliases: ["Kimi", "月之暗面", "Moonshot"] },
-  minimax: { name: "MiniMax", displayTag: null, aliases: ["MiniMax", "海螺"] },
-  zhipu: { name: "智谱 GLM", displayTag: null, aliases: ["智谱", "GLM", "Z.ai"] },
-  xai: { name: "xAI", displayTag: "xAI", aliases: ["xAI", "Grok"] },
-  meta: { name: "Meta", displayTag: "Meta", aliases: ["Meta", "Llama"] },
-  microsoft: { name: "Microsoft", displayTag: "Microsoft", aliases: ["Microsoft", "微软", "Copilot"] },
-  nvidia: { name: "NVIDIA", displayTag: null, aliases: ["NVIDIA", "英伟达"] },
-  "hugging-face": { name: "Hugging Face", displayTag: "Hugging Face", aliases: ["Hugging Face"] },
-  cursor: { name: "Cursor", displayTag: null, aliases: ["Cursor", "Anysphere"] },
-  openrouter: { name: "OpenRouter", displayTag: null, aliases: ["OpenRouter"] },
+  producthunt: { name: "Product Hunt", displayTag: "Product Hunt", aliases: ["Product Hunt"] },
+  hackernews: { name: "Hacker News", displayTag: "Hacker News", aliases: ["Hacker News", "HN"] },
+  indiehackers: { name: "Indie Hackers", displayTag: "Indie Hackers", aliases: ["Indie Hackers"] },
+  shopify: { name: "Shopify", displayTag: "Shopify", aliases: ["Shopify"] },
+  stripe: { name: "Stripe", displayTag: "Stripe", aliases: ["Stripe"] },
+  taobao: { name: "淘宝", displayTag: "淘宝", aliases: ["淘宝", "天猫"] },
+  douyin: { name: "抖音电商", displayTag: "抖音电商", aliases: ["抖音电商", "抖音"] },
+  xiaohongshu: { name: "小红书", displayTag: "小红书", aliases: ["小红书"] },
+  wechat: { name: "微信小店", displayTag: "微信小店", aliases: ["微信小店", "微信"] },
+  meituan: { name: "美团", displayTag: "美团", aliases: ["美团"] },
 };
 
-/**
- * 身份词典：摘要和标题里出现的公司，必须在原文里也出现过，否则退回原标题、丢掉摘要（防止模型张冠李戴）。
- * 行业没有这个问题时可以留空数组。
- */
-export const IDENTITY_LEXICON: ReadonlyArray<{ id: string; name: string; patterns: RegExp[] }> = [
-  { id: "openai", name: "OpenAI", patterns: [/openai|chatgpt|\bgpt-?[o\d]|\bsora\b|\bcodex\b/i] },
-  { id: "anthropic", name: "Anthropic", patterns: [/anthropic|\bclaude\b/i, /\b(?:opus|sonnet|haiku)\s*\d+(?:[.\-]\d+)*\b/i, /\bfable\s*\d+(?:[.\-]\d+)*\b|\bmythos\b/i] },
-  { id: "google", name: "Google / Gemini", patterns: [/google|deepmind|\bgemini\b|notebooklm|\bveo\s?\d|\bAlphaFold\b|\bAMIE\b/i] },
-  { id: "deepseek", name: "DeepSeek", patterns: [/deepseek|深度求索/i] },
-  { id: "xai", name: "xAI / Grok", patterns: [/\bxai\b|\bgrok\b/i] },
-  { id: "meta", name: "Meta / Llama", patterns: [/\bMeta\b/, /\bmeta\s?ai\b|\bllama\b/i] },
-  { id: "microsoft", name: "Microsoft / Copilot", patterns: [/microsoft|copilot|微软/i] },
-  { id: "nvidia", name: "NVIDIA", patterns: [/nvidia|英伟达|\bnemotron\b|\bnemo\b|\bblackwell\b|\brubin(?:\s+ultra)?\b|\bcuda\b/i] },
-  { id: "qwen", name: "千问 Qwen", patterns: [/\bqwen|通义|千问/i] },
-  { id: "hugging-face", name: "Hugging Face", patterns: [/hugging\s?face/i] },
-  { id: "cursor", name: "Cursor", patterns: [/\bCursor\b/] },
-  { id: "kimi", name: "Kimi / 月之暗面", patterns: [/\bkimi\b|月之暗面|\bmoonshot\s?ai\b/i] },
-  { id: "openrouter", name: "OpenRouter", patterns: [/openrouter/i] },
-  { id: "minimax", name: "MiniMax", patterns: [/minimax/i] },
-  { id: "zhipu", name: "智谱 GLM", patterns: [/智谱|\bglm-?[4-9]/i] },
-  { id: "hunyuan", name: "腾讯混元", patterns: [/混元|hunyuan/i] },
-  { id: "doubao", name: "字节豆包", patterns: [/豆包|doubao|字节跳动|bytedance/i] },
-  { id: "mistral", name: "Mistral", patterns: [/mistral/i] },
-  { id: "perplexity", name: "Perplexity", patterns: [/\bPerplexity\b/] },
-  { id: "runway", name: "Runway", patterns: [/\brunway\b/i] },
-  { id: "suno", name: "Suno", patterns: [/\bsuno\b/i] },
-  { id: "midjourney", name: "Midjourney", patterns: [/midjourney/i] },
-  { id: "stability-ai", name: "Stability AI", patterns: [/stability\s?ai/i] },
-  { id: "elevenlabs", name: "ElevenLabs", patterns: [/eleven\s?labs/i] },
-  { id: "vllm", name: "vLLM", patterns: [/\bvllm\b/i] },
-  { id: "ollama", name: "Ollama", patterns: [/\bollama\b/i] },
-  { id: "windsurf", name: "Windsurf", patterns: [/windsurf/i] },
-  { id: "devin", name: "Devin", patterns: [/\bdevin\b/i] },
-  { id: "manus", name: "Manus", patterns: [/\bmanus\b/i] },
-  { id: "apple", name: "Apple AI", patterns: [/\bapple\s?(intelligence|silicon|ai)\b|苹果(智能|\s?AI)/i] },
-  { id: "amazon", name: "Amazon / AWS", patterns: [/amazon|\baws\b|亚马逊/i] },
-  { id: "baidu", name: "百度文心", patterns: [/百度|baidu|文心|\bernie\s?bot\b/i] },
-];
+const escapeRegExp = (value: string) => value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+export const IDENTITY_LEXICON: ReadonlyArray<{ id: string; name: string; patterns: RegExp[] }> = Object.entries(ENTITIES).map(([id, item]) => ({
+  id,
+  name: item.name,
+  patterns: item.aliases.map((alias) => new RegExp(escapeRegExp(alias), "i")),
+}));
 
-/** 这些域名上的文章，发布方就是对应的公司（托管平台如 GitHub、arXiv 不算）。 */
 export const PUBLISHER_DOMAINS: ReadonlyArray<{ entityId: string; domains: readonly string[] }> = [
-  { entityId: "openai", domains: ["openai.com"] },
-  { entityId: "anthropic", domains: ["anthropic.com", "claude.com"] },
-  { entityId: "google", domains: ["deepmind.google", "ai.google", "blog.google"] },
-  { entityId: "deepseek", domains: ["deepseek.com"] },
-  { entityId: "xai", domains: ["x.ai"] },
-  { entityId: "meta", domains: ["ai.meta.com"] },
-  { entityId: "microsoft", domains: ["microsoft.com"] },
-  { entityId: "nvidia", domains: ["nvidia.com"] },
-  { entityId: "qwen", domains: ["qwen.ai"] },
-  { entityId: "cursor", domains: ["cursor.com"] },
-  { entityId: "openrouter", domains: ["openrouter.ai"] },
+  { entityId: "producthunt", domains: ["producthunt.com"] },
+  { entityId: "hackernews", domains: ["ycombinator.com", "news.ycombinator.com"] },
+  { entityId: "indiehackers", domains: ["indiehackers.com"] },
+  { entityId: "shopify", domains: ["shopify.com", "changelog.shopify.com"] },
+  { entityId: "stripe", domains: ["stripe.com"] },
 ];
 
-/** 原文里的这些写法也算提到了对应公司。 */
-export const IDENTITY_CONTEXT_ALIASES: ReadonlyArray<{ entityId: string; pattern: RegExp }> = [
-  { entityId: "meta", pattern: /@AIatMeta\b/i },
-  { entityId: "zhipu", pattern: /\bZhipu(?:\s+AI\b|['’]s\b)/i },
-];
+export const IDENTITY_CONTEXT_ALIASES: ReadonlyArray<{ entityId: string; pattern: RegExp }> = [];
