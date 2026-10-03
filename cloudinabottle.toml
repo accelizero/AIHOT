@@ -1,7 +1,7 @@
 [app]
 name = "news"
 version = "0.1.0"
-description = "AI 行业热点采集、精选、聚类与日报站"
+description = "普通人创业与一人小生意热点采集、精选、聚类与日报站"
 authors = ["accelizero"]
 
 [runtime.container]
