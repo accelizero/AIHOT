@@ -2,8 +2,8 @@
   "exportedAt": "2026-10-03",
   "groups": [
     { "key": "field", "name": "一人生意模型", "blurb": "按一个人实际可以交付和收费的生意类型浏览" },
-    { "key": "motion", "name": "赚钱动作", "blurb": "按获客、成交、交付、定价和复购寻找可执行方法" },
-    { "key": "evidence", "name": "证据与边界", "blurb": "区分真实收入案例、实测复盘、讨论中的机会和平台风险" }
+    { "key": "genre", "name": "赚钱动作", "blurb": "按获客、成交、交付、定价和复购寻找可执行方法" },
+    { "key": "company", "name": "证据与边界", "blurb": "区分真实收入案例、实测复盘、讨论中的机会和平台风险" }
   ],
   "topics": [
     { "slug": "micro-saas", "name": "微型 SaaS 与小软件", "group": "field", "tags": ["独立开发", "微型SaaS", "App/插件", "网站/API"], "definition": "一个人开发并销售微型 SaaS、App、插件、API 或小型网站，优先收录真实客户、定价和收入证据。", "related": ["ai-services", "digital-products", "customer-acquisition"] },
@@ -12,10 +12,10 @@
     { "slug": "digital-products", "name": "数字产品", "group": "field", "tags": ["数字产品", "数字模板", "知识产品", "低成本启动"], "definition": "模板、课程、资料包、电子书、素材、插件和自动化脚本等可重复交付的产品。", "related": ["creator-business", "micro-saas", "customer-acquisition"] },
     { "slug": "creator-business", "name": "内容与创作者收入", "group": "field", "tags": ["内容变现", "公众号", "Newsletter", "YouTube", "播客/视频"], "definition": "公众号、Newsletter、YouTube、播客、短视频、社群和个人品牌如何形成广告、订阅、咨询或产品收入。", "related": ["digital-products", "customer-acquisition"] },
     { "slug": "local-and-commerce", "name": "轻电商与本地服务", "group": "field", "tags": ["电商/跨境", "本地服务", "小众品牌", "本地生活"], "definition": "低库存商品、数字与实体结合、小众品牌、二手交易、家政维修和其他个人可启动的线下生意。", "related": ["creator-business", "platform-rules"] },
-    { "slug": "customer-acquisition", "name": "获客与成交", "group": "motion", "tags": ["获客/销售", "SEO", "冷邮件", "社交获客", "平台流量"], "definition": "搜索、内容、社群、转介绍、冷邮件、平台分发和销售流程，必须对应一个明确生意。", "related": ["freelance-services", "creator-business", "pricing-delivery"] },
-    { "slug": "pricing-delivery", "name": "定价、交付与现金流", "group": "motion", "tags": ["定价/现金流", "复购/留存", "支付/税务", "低成本启动"], "definition": "报价、合同、收款、交付、复购、成本和现金流管理，必须有具体场景而非泛泛管理学。", "related": ["customer-acquisition", "freelance-services"] },
-    { "slug": "case-studies", "name": "真实案例与收入复盘", "group": "evidence", "tags": ["真实案例", "收入案例"], "definition": "当事人或可靠采访披露客户、产品、时间、成本、收入、获客和失败过程的案例。", "related": ["micro-saas", "ai-services", "creator-business"] },
-    { "slug": "experiments", "name": "生意实验与未验证机会", "group": "evidence", "tags": ["讨论观察", "真实案例"], "definition": "有人正在验证或认真讨论的单一生意机会，必须标注证据边界，不能把想法写成已验证收入。", "related": ["case-studies", "customer-acquisition"] },
-    { "slug": "platform-rules", "name": "平台、支付与合规", "group": "evidence", "tags": ["平台规则", "政策/税务", "风险提醒"], "definition": "只有在明确影响某类个人商家下一步行动时，才收录平台、支付、税务和合规变化。", "related": ["local-and-commerce", "pricing-delivery"] }
+    { "slug": "customer-acquisition", "name": "获客与成交", "group": "genre", "tags": ["获客/销售", "SEO", "冷邮件", "社交获客", "平台流量"], "definition": "搜索、内容、社群、转介绍、冷邮件、平台分发和销售流程，必须对应一个明确生意。", "related": ["freelance-services", "creator-business", "pricing-delivery"] },
+    { "slug": "pricing-delivery", "name": "定价、交付与现金流", "group": "genre", "tags": ["定价/现金流", "复购/留存", "支付/税务", "低成本启动"], "definition": "报价、合同、收款、交付、复购、成本和现金流管理，必须有具体场景而非泛泛管理学。", "related": ["customer-acquisition", "freelance-services"] },
+    { "slug": "case-studies", "name": "真实案例与收入复盘", "group": "company", "tags": ["真实案例", "收入案例"], "definition": "当事人或可靠采访披露客户、产品、时间、成本、收入、获客和失败过程的案例。", "related": ["micro-saas", "ai-services", "creator-business"] },
+    { "slug": "experiments", "name": "生意实验与未验证机会", "group": "company", "tags": ["讨论观察", "真实案例"], "definition": "有人正在验证或认真讨论的单一生意机会，必须标注证据边界，不能把想法写成已验证收入。", "related": ["case-studies", "customer-acquisition"] },
+    { "slug": "platform-rules", "name": "平台、支付与合规", "group": "company", "tags": ["平台规则", "政策/税务", "风险提醒"], "definition": "只有在明确影响某类个人商家下一步行动时，才收录平台、支付、税务和合规变化。", "related": ["local-and-commerce", "pricing-delivery"] }
   ]
 }
