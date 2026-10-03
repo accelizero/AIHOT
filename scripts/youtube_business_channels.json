@@ -34,5 +34,11 @@
     "slug": "rob-walling",
     "name": "Rob Walling",
     "enabled": true
+  },
+  {
+    "id": "UCKMgsk01R-OMBBifqjnawlg",
+    "slug": "hamza-haroon",
+    "name": "Hamza Haroon – Micro SaaS Talks",
+    "enabled": true
   }
 ]
